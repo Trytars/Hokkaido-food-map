@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>北海道 食材・料理 インタラクティブマップ</title>
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-o2RFqt/Q+YBkr2Cn72CVEcP1Gn3AZ3rvV2kqZ1Cj/kE="
+    crossorigin=""
+  />
+  <style>
+    #map {
+      height: 100vh;
+      width: 100%;
+    }
+    body, html {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-oCOf1cjEM8ndd3+ZjYtZyu8IO8i9wlvYlRBxoq5d2i0="
+    crossorigin=""
+  ></script>
+  <script>
+    // マップを初期化
+    const map = L.map("map").setView([43.5, 142.0], 6);
+
+    // タイルレイヤー（OpenStreetMap）
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    }).addTo(map);
+
+    // マーカーとポップアップのデータ
+    const locations = [
+      {
+        name: "苫小牧市 – ホッキ貝",
+        coords: [42.634, 141.601],
+        popup: `<h3>苫小牧市 – ホッキ貝</h3>
+          <ul>
+            <li>国内漁獲量の大半を占める</li>
+            <li>旬：1〜3月（通年流通）</li>
+            <li>栄養：タウリン(牡蠣の約2倍)、ビタミンB12、ミネラル</li>
+            <li>料理：刺身、ホッキカレー、バター焼き ほか</li>
+          </ul>`
+      },
+      {
+        name: "鹿部町 – 漁師めし",
+        coords: [41.883, 140.740],
+        popup: `<h3>鹿部町 – 漁師めし</h3>
+          <ul>
+            <li>カスベのから揚げ</li>
+            <li>ベビーホタテ煮物</li>
+            <li>浜のかあさん食堂で漁師めし</li>
+          </ul>`
+      },
+      {
+        name: "剣淵町 – キヌアブレンドご飯",
+        coords: [44.057, 142.494],
+        popup: `<h3>剣淵町 – キヌアブレンドご飯</h3>
+          <ul>
+            <li>剣淵産キヌア×白米</li>
+            <li>完全栄養食：タンパク質・食物繊維・ミネラル</li>
+            <li>アレンジ：おにぎり、チャーハン、トマトリゾット など</li>
+          </ul>`
+      },
+      {
+        name: "北海道の牛乳",
+        coords: [43.0667, 141.3500],
+        popup: `<h3>北海道の牛乳</h3>
+          <ul>
+            <li>世界最高水準の生乳品質</li>
+            <li>血圧調整・認知症リスク低下</li>
+            <li>乳和食で塩分控えめでも旨味アップ</li>
+            <li>レシピ：ミルクおでん、ミルク坦々うどん など</li>
+          </ul>`
+      },
+      {
+        name: "越冬野菜",
+        coords: [43.7687, 142.365],
+        popup: `<h3>越冬野菜</h3>
+          <ul>
+            <li>低温保存で甘み・栄養価UP</li>
+            <li>越冬キャベツ、雪の下大根、寒締めほうれんそう ほか</li>
+          </ul>`
+      }
+    ];
+
+    // マーカーを追加
+    locations.forEach(loc => {
+      L.marker(loc.coords)
+        .addTo(map)
+        .bindPopup(loc.popup);
+    });
+  </script>
+</body>
+</html>
